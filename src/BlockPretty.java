@@ -34,7 +34,7 @@ public class  BlockPretty implements Pretty{
 			
 			//klamernpaare finden die auf der selben ebene sind 
 		} while (true); // TODO not end
-		return transform(input);
+	//	return transform(input);
 	}
 	
 	public BlockPretty(int lineCount){
