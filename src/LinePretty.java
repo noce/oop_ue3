@@ -1,5 +1,5 @@
-//haut gleich alle leerzeilen bzw. Zeilen umbrüche raus
-//Ersetzungsmap: key: das zu ersetzende Zeichen, value: die einzufügenden Zeichen
+//haut gleich alle leerzeilen bzw. Zeilen umbrï¿½che raus
+//Ersetzungsmap: key: das zu ersetzende Zeichen, value: die einzufï¿½genden Zeichen
 //beeinhaltet die Logik zum ersetzen
 //Mehode: addReplacement(regex pattern, String replacement)
 
@@ -7,13 +7,11 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-abstract class LinePretty extends BlockPretty {
+abstract class LinePretty implements Pretty{
 	LinePretty(int afterBlockLines) {
-		super(afterBlockLines);
 	}
 	
 	LinePretty() {
-		super(0);
 	}
 
 	//post: returns String with whitespace stripped from lines, 
