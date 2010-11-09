@@ -10,6 +10,6 @@ public class MorePretty extends LinePretty{
 	
 	//gibt als ergebnis die anz d noch offenen klammerebenen zurueck
 	public int open(){
-		return 0;
+		return openBraces;
 	}
 }
