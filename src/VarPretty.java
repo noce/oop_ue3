@@ -1,21 +1,21 @@
 public class VarPretty extends LinePretty{
 	
-	//short- od longPretty
-	private String tmpMode, mode;
+	//longPretty: mode = true;
+	private boolean tmpLongP, longPretty;
 	private int tmpDepth, depth;
 	
-	public VarPretty(String m, int d){
+	public VarPretty(boolean mode, int d){
 		super(d);
-		mode = m;
+		longPretty = mode;
 	}
 	
-	public VarPretty(String m){
+	public VarPretty(boolean mode){
 		super(0);
-		mode = m;
+		longPretty = mode;
 	}
 	
-	public void setMode(String m){
-		tmpMode = m;
+	public void setMode(boolean mode){
+		tmpLongP = mode;
 	}
 	
 	public void setDepth(int d){
@@ -24,13 +24,19 @@ public class VarPretty extends LinePretty{
 	
 	//aenderungen werden erst nach reset geltend gemacht
 	public void reset(){
-		mode = tmpMode;
+		longPretty = tmpLongP;
 		depth = tmpDepth;
 	}
 
 	@Override
 	protected void writeOpenBrace(StringBuilder buf) {
 		// TODO Auto-generated method stub
-		
+		if(longPretty){
+			writeIndent(buf);
+			buf.append('{');
+		} else {
+			buf.append(afterTokenWhitespace);
+			buf.append("{");
+		}
 	}
 }
