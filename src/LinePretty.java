@@ -22,7 +22,8 @@ abstract class LinePretty extends BlockPretty {
 	protected StringBuilder afterTokenWhitespace = new StringBuilder();
 	
 	protected int openBraces;
-	protected int depth;
+	
+	final protected int depth;
 
 	//post: beginning of file state
 	@Override

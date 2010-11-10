@@ -1,6 +1,5 @@
 public class VarPretty extends LinePretty{
 	
-	//longPretty: mode = true;
 	private boolean tmpLongP, longPretty;
 	private int tmpDepth, depth;
 	
@@ -21,16 +20,16 @@ public class VarPretty extends LinePretty{
 		tmpDepth = d;
 	}
 	
-	//aenderungen werden erst nach reset geltend gemacht
+	//post: änderungen an depth oder mode werden hier geltend gemacht
 	public void reset(){
 		longPretty = tmpLongP;
 		depth = tmpDepth;
 		super.reset();
 	}
 
+	//post: write open brace according to mode
 	@Override
 	protected void writeOpenBrace(StringBuilder buf) {
-		// TODO Auto-generated method stub
 		if(longPretty){
 			writeIndent(buf);
 			buf.append('{');

@@ -1,6 +1,3 @@
-//addreplacement() wird von den subklassen aufgerufen
-//wir einfach f�r jedes zu ersetzende zeichen aufgerufen
-
 public class LongPretty extends LinePretty{
 	
 	public LongPretty(int depth){

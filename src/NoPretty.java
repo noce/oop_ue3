@@ -5,7 +5,7 @@ public class NoPretty implements Pretty{
 		return new String(s);
 	}
 	
+	//do nothing, no state
 	public void reset(){
-		//do nothing
 	}
 }
