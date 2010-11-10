@@ -1,12 +1,12 @@
 public class MorePretty extends VarPretty{
 	
-	public MorePretty(boolean longP, int i){
-		super(longP, i);
+	public MorePretty(boolean longP, int depth){
+		super(longP, depth);
 	}
 	
 	//erzeugt longPretty
-	public MorePretty(){
-		super(true, 0);
+	public MorePretty(int depth){
+		super(true, depth);
 	}
 	
 	//gibt als ergebnis die anz d noch offenen klammerebenen zurueck

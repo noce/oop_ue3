@@ -3,12 +3,18 @@
 //beeinhaltet die Logik zum ersetzen
 //Mehode: addReplacement(regex pattern, String replacement)
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 
-abstract class LinePretty implements Pretty {
+/* LinePretty can have 3 states:
+ * 
+ * LINE_START: eats whitespace; indents and transitions to IN_TOKEN when it hits a non whitespace
+ * IN_TOKEN: outputs until it hits } or { or ; or a whitespace
+ *           transitions to AFTER_TOKEN
+ * AFTER_TOKEN: ; => eat whitespace before, transition to LINE_START
+ *              { => call writeOpenBrace, transition to LINE_START
+ *              } => 
+ * 
+ */
+abstract class LinePretty extends BlockPretty {
 	abstract protected void writeOpenBrace(StringBuilder buf);
 	
 	private enum LineState {
@@ -16,7 +22,7 @@ abstract class LinePretty implements Pretty {
 		IN_TOKEN,
 		AFTER_TOKEN // count whitespace, write if no ; follows
 	}
-	private LineState state;
+	private LineState state = LineState.LINE_START;
 
 	// valid in AFTER_TOKEN
 	protected StringBuilder afterTokenWhitespace = new StringBuilder();
@@ -32,6 +38,7 @@ abstract class LinePretty implements Pretty {
 	}
 	
 	public LinePretty(int depth) {
+		super(0);
 		this.depth = depth;
 		reset();
 	}
@@ -57,6 +64,18 @@ abstract class LinePretty implements Pretty {
 			case LINE_START:
 				if (Character.isWhitespace(cur)) {
 					break;
+				} else if (cur == '}') {
+					openBraces--;
+					writeIndent(ret);
+					writeCloseBrace(ret);
+					break;
+				} else if (cur == '{') {
+					writeIndent(ret);
+					ret.append(cur);
+					openBraces++;
+					break;
+				} else if (ret.length() > 0) {
+					writeIndent(ret);
 				}
 				state = LineState.IN_TOKEN;
 				continue parse_loop;
@@ -76,24 +95,18 @@ abstract class LinePretty implements Pretty {
 				} else if (cur == ';') {
 					ret.append(cur);
 
-					writeIndent(ret);
 					afterTokenWhitespace.setLength(0);
 					state = LineState.LINE_START;
 				} else if (cur == '{') {
 					writeOpenBrace(ret);
 					openBraces++;
 	
-					writeIndent(ret);
 					afterTokenWhitespace.setLength(0);
 					state = LineState.LINE_START;
 				} else if (cur == '}') {
-					openBraces--;
-					writeIndent(ret);
-					ret.append(cur);
-					
-					writeIndent(ret);
 					afterTokenWhitespace.setLength(0);
 					state = LineState.LINE_START;
+					continue parse_loop;
 				} else {
 					ret.append(afterTokenWhitespace);
 					ret.append(cur);

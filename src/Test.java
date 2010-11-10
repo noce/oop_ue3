@@ -17,7 +17,7 @@ public class Test{
 	String t3 = b2.transform("class A{ B c; ;D f { c.f(d) /*x*/; /*y*/} }");
 	String t31 = b31.transform("class A{ B c; ;D f { c.f(d) /*x*/; /*y*/} }");
 	Pretty b3 = new ShortPretty(4);
-	String t4 = b3.transform("class A{ static main{ /*this is an exemple*/ x.z();    /*abc*/; if(f){g  ; if(h){ku}}" +
+	String t4 = b3.transform("class A { static main{ /*this is an exemple*/ x.z();    /*abc*/; if(f){g  ; if(h){ku}}" +
 			"				 else { ch; }     }}   ");
 	System.out.println("ShortPretty(Pretty):" + "\n" + t3);
 	System.out.println("ShortPretty(Pretty):" + "\n" + t4);
@@ -29,12 +29,13 @@ public class Test{
 	System.out.println("NoPretty:" + "\n" + t5);
 	
 	//MorePretty
-	Pretty b5 = new MorePretty();
+	MorePretty b5 = new MorePretty(2);
 	String t6 = b5.transform("class A{ B c; ;D f { c.f(d)  {  /*x*/;{ /*y*/} }");
 	System.out.println("MorePretty:" + "\n" + t6);
+	System.out.println("Open Braces: " + b5.open());
 	
 	//VarPretty
-	Pretty b6 = new VarPretty(true); //longPretty
+	Pretty b6 = new VarPretty(2); //longPretty
 	String t7 = b6.transform("class A{ B c; ;D f { c.f(d)  {  /*x*/;{ /*y*/} }");
 	System.out.println("VarPretty(long, without depth):" + "\n" + t7);
 	Pretty b8 = new VarPretty(true, 2); //longPretty
@@ -44,14 +45,14 @@ public class Test{
 	System.out.println("VarPretty(Pretty; long, with depth):" + "\n" + t9);
 	System.out.println("VarPretty(LineP; long, with depth):" + "\n" + t32);
 	
-	VarPretty b7 = new VarPretty(false); //shortPretty
+	VarPretty b7 = new VarPretty(false, 4); //shortPretty
 	b7.setMode(true);
 	b7.setDepth(3);
-	String t8 = b7.transform("class A{ B c; ;D f { c.f(d)  {  /*x*/;{ /*y*/} }");
+	String t8 = b7.transform("    \n\n  \t  class A{ B c; ;D f \n \t{ c.f(d)  {  /*x*/;{ /*y*/} }");
 	System.out.println("VarPretty(short):" + "\n" + t8);
 	b7.reset();
 	String t10 = b7.transform("class A{ B c; ;D f { c.f(d)  {  /*x*/;{ /*y*/} }");
-	System.out.println("VarPretty(long, modeP):" + "\n" + t10);
+	System.out.println("VarPretty(long) after reset:" + "\n" + t10);
 	
 	//BlockPretty
 	Pretty b9 = new BlockPretty(3);

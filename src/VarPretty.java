@@ -9,9 +9,8 @@ public class VarPretty extends LinePretty{
 		longPretty = mode;
 	}
 	
-	public VarPretty(boolean mode){
-		super(0);
-		longPretty = mode;
+	public VarPretty(int depth){
+		this(true, depth);
 	}
 	
 	public void setMode(boolean mode){
@@ -26,6 +25,7 @@ public class VarPretty extends LinePretty{
 	public void reset(){
 		longPretty = tmpLongP;
 		depth = tmpDepth;
+		super.reset();
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class VarPretty extends LinePretty{
 			writeIndent(buf);
 			buf.append('{');
 		} else {
-			buf.append(afterTokenWhitespace);
+			buf.append(' ');
 			buf.append("{");
 		}
 	}
