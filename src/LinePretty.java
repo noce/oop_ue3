@@ -22,7 +22,7 @@ abstract class LinePretty extends BlockPretty {
 		IN_TOKEN,
 		AFTER_TOKEN // count whitespace, write if no ; follows
 	}
-	private LineState state;
+	private LineState state = LineState.LINE_START;
 
 	// valid in AFTER_TOKEN
 	protected StringBuilder afterTokenWhitespace = new StringBuilder();
@@ -38,7 +38,7 @@ abstract class LinePretty extends BlockPretty {
 	}
 	
 	public LinePretty(int depth) {
-		super(1);
+		super(0);
 		this.depth = depth;
 		reset();
 	}
@@ -65,9 +65,14 @@ abstract class LinePretty extends BlockPretty {
 				if (Character.isWhitespace(cur)) {
 					break;
 				} else if (cur == '}') {
+					openBraces--;
 					writeIndent(ret);
 					writeCloseBrace(ret);
-					state = LineState.IN_TOKEN;
+					break;
+				} else if (cur == '{') {
+					writeIndent(ret);
+					ret.append(cur);
+					openBraces++;
 					break;
 				} else if (ret.length() > 0) {
 					writeIndent(ret);
@@ -99,12 +104,9 @@ abstract class LinePretty extends BlockPretty {
 					afterTokenWhitespace.setLength(0);
 					state = LineState.LINE_START;
 				} else if (cur == '}') {
-					openBraces--;
-					writeIndent(ret);
-					ret.append(cur);
-					
 					afterTokenWhitespace.setLength(0);
-					state = LineState.IN_TOKEN;
+					state = LineState.LINE_START;
+					continue parse_loop;
 				} else {
 					ret.append(afterTokenWhitespace);
 					ret.append(cur);

@@ -12,7 +12,7 @@ public class Test{
 	Pretty b2 = new ShortPretty(2);
 	String t3 = b2.transform("class A{ B c; ;D f { c.f(d) /*x*/; /*y*/} }");
 	Pretty b3 = new ShortPretty(4);
-	String t4 = b3.transform("class A{ static main{ /*this is an exemple*/ x.z();    /*abc*/; if(f){g  ; if(h){ku}}" +
+	String t4 = b3.transform("class A { static main{ /*this is an exemple*/ x.z();    /*abc*/; if(f){g  ; if(h){ku}}" +
 			"				 else { ch; }     }}   ");
 	System.out.println("ShortPretty:" + "\n" + t3);
 	System.out.println("ShortPretty:" + "\n" + t4);
@@ -23,9 +23,10 @@ public class Test{
 	System.out.println("NoPretty:" + "\n" + t5);
 	
 	//MorePretty
-	Pretty b5 = new MorePretty();
+	MorePretty b5 = new MorePretty(2);
 	String t6 = b5.transform("class A{ B c; ;D f { c.f(d)  {  /*x*/;{ /*y*/} }");
 	System.out.println("MorePretty:" + "\n" + t6);
+	System.out.println("Open Braces: " + b5.open());
 	}
 	
 	//VarPretty

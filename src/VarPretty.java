@@ -26,6 +26,7 @@ public class VarPretty extends LinePretty{
 	public void reset(){
 		longPretty = tmpLongP;
 		depth = tmpDepth;
+		super.reset();
 	}
 
 	@Override
