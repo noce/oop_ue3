@@ -57,5 +57,8 @@ public class Test{
 	Pretty b9 = new BlockPretty(3);
 	String t11 = b9.transform("class A{ B c; ;D f { c.f(d)  {  /*x*/;{ /*y*/} }");
 	System.out.println("BlockPretty:" + "\n" + t11);
+	
+	//Sonderfaelle
+	
 	}
 }
