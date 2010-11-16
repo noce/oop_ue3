@@ -1,6 +1,21 @@
 
 public class Test{
 	static private int run=0, success=0;
+	
+	/*Gegenbeispiele:
+	 * 1. Line Pretty erbt von BlockPretty:
+	 * 		sobalt BlockPretty Parameter von newlines bekommt(Konstruktor) stimmts nicht
+	 * 		da LinePretty diesen Parameter nicht hat
+	 * 
+	 * 2.NoPretty implementiert Pretty direkt:
+	 * 		NoPretty ist ein Sonderfall von BLockPretty nur dass eben als Paramter 0 übergeben wird.
+	 * 
+	 * 3. Short & LongPretty erben von VarPretty
+	 * 		geht nicht da erst zur Laufzeit feststeht, ob es ein Long oder Short wird
+	 * 
+	 * 4. BlockPretty erbt von LinePretty
+	 * 		geht nicht da LinePretty viel mehr Funktionalität implementiert hat
+	 */
 
 	static void expectOutput(Pretty p, String in, String expected) {
 		run++;

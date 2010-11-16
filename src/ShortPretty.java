@@ -1,5 +1,6 @@
 //hab die jez LongPretty erweitern lassen
 public class ShortPretty extends LinePretty{
+	
 	public ShortPretty(int depth){
 		super(depth);
 	}

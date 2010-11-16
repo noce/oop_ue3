@@ -20,7 +20,8 @@ public class  BlockPretty implements Pretty {
 	protected void writeCloseBrace(StringBuilder buf) {
 		buf.append(replacement);
 	}
-
+	
+	//post: returns a copy of s with a predefined amount (= br) of newlines after each closing brace
 	public String transform(String s){
 		return s.replace("}", replacement);
 	}

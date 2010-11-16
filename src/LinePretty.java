@@ -8,7 +8,7 @@
  *              { => call writeOpenBrace, transition to LINE_START
  *              } => call writeCloseBrace, transiton to LINE_START
  */
-abstract class LinePretty extends BlockPretty {
+abstract class LinePretty implements Pretty {
 	abstract protected void writeOpenBrace(StringBuilder buf);
 	
 	private enum LineState {
@@ -28,14 +28,12 @@ abstract class LinePretty extends BlockPretty {
 	//post: beginning of file state
 	@Override
 	public void reset() {
-		super.reset();
 		state = LineState.LINE_START;
 		afterTokenWhitespace.setLength(0);
 		openBraces = 0;
 	}
 	
 	public LinePretty(int depth) {
-		super(0);
 		this.depth = depth;
 		reset();
 	}
@@ -54,6 +52,12 @@ abstract class LinePretty extends BlockPretty {
 	//
 	// in String may be incomplete and/or continue previous transformation
 	@Override
+	//post: jede Zeile wird enstsprechend der Klammernebenen eingerückt.
+	//		nach jeder '}' kommt ein new line
+	//		nach jedem ';' eine new line
+	//		leeraum am beginn und ende wird entfernt
+	//		leere Zeilen werden entfernt
+	
 	public String transform(String in) {
 		StringBuilder ret = new StringBuilder();
 		
@@ -71,7 +75,7 @@ abstract class LinePretty extends BlockPretty {
 				} else if (cur == '}') {
 					openBraces--;
 					writeIndent(ret);
-					writeCloseBrace(ret);
+					ret.append(cur);
 					// stay in LINE_START, preventing superflous \n
 					break;
 				} else if (cur == '{') {

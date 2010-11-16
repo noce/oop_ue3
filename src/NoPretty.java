@@ -1,6 +1,10 @@
-public class NoPretty implements Pretty{
+public class NoPretty extends BlockPretty{
 	
-	//liefert kopie von s
+	public NoPretty(){
+		super(0);
+	}
+	
+	//post: liefert kopie von s
 	public String transform(String s){
 		return new String(s);
 	}
